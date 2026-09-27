@@ -1,0 +1,6 @@
+{
+  "name": "Recovery Resource Navigator",
+  "description": "An AI-powered resource navigator for recovery support, featuring a chatbot assistant named Tom.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
