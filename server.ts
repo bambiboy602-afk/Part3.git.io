@@ -38,7 +38,7 @@ async function createServer() {
       callbacks: {
         onmessage: (message: LiveServerMessage) => {
           const audio =
-            message.serverContent?.modelTurn?.parts[0]?.inlineData?.data;
+            message.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
           if (audio) clientWs.send(JSON.stringify({ audio }));
           if (message.serverContent?.interrupted)
             clientWs.send(JSON.stringify({ interrupted: true }));
@@ -68,9 +68,11 @@ async function createServer() {
       });
       const response = await chat.sendMessage({ message: contextMessage });
       res.json({ text: response.text });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      res.status(500).json({ error: 'Failed to communicate with AI' });
+      const status = error.status || 500;
+      const message = error.message || 'Failed to communicate with AI';
+      res.status(status).json({ error: message });
     }
   });
 
